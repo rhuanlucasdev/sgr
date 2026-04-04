@@ -1,11 +1,12 @@
 import Header from "@/components/header";
-import Image from "next/image";
+import Hero from "@/components/Hero";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-[#F9F9F9]">
+    <main className="min-h-screen bg-[#F8F7F2] text-[#1A1C1C]">
       <Header />
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-[#F9F9F9] dark:bg-[#F9F9F9] sm:items-start"></main>
-    </div>
+
+      <Hero />
+    </main>
   );
 }
