@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
-
+import { products, type Product } from "@/data/products";
 import ProductCard from "./ui/productCard";
 
 import {
@@ -13,86 +13,11 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 
-const products = [
-  {
-    image: "/granola.png",
-    title: "Granola",
-    description: "Mix crocante de sementes, mel orgânico e coco tostado.",
-    price: 34.9,
-  },
-  {
-    image: "/aveia.png",
-    title: "Aveia em Flocos",
-    description: "Flocos grossos e prensados a frio para maior nutrição.",
-    price: 18.5,
-  },
-  {
-    image: "/castanhas.png",
-    title: "Castanhas",
-    description: "Mix selecionado de castanhas do pará e de caju torradas.",
-    price: 42.0,
-  },
-  {
-    image: "/linhaca.png",
-    title: "Linhaça",
-    description:
-      "Semente rica em ômega-3, perfeita para uma alimentação saudável.",
-    price: 28.9,
-  },
-  {
-    image: "/cafe.png",
-    title: "Café Premium",
-    description:
-      "Grãos 100% arábica, torrados na medida para um sabor encorpado.",
-    price: 16.9,
-  },
-  {
-    image: "/quinoa.png",
-    title: "Quinoa Real",
-    description:
-      "Grão andino rico em proteínas, sem glúten e de fácil preparo.",
-    price: 38.5,
-  },
-  {
-    image: "/amendoim.png",
-    title: "Amendoim Cru",
-    description: "Grãos inteiros e selecionados, sem sal e sem conservantes.",
-    price: 14.9,
-  },
-  {
-    image: "/chia.png",
-    title: "Chia",
-    description:
-      "Pequena semente com alto teor de fibras, cálcio e antioxidantes.",
-    price: 22.9,
-  },
-  {
-    image: "/feijao-carioca.png",
-    title: "Feijão Carioca",
-    description: "Grãos novos, colhidos na safra atual, macios e saborosos.",
-    price: 12.9,
-  },
-  {
-    image: "/arroz-integral.png",
-    title: "Arroz Integral",
-    description: "Grão integral com casca preservada para mais fibras e sabor.",
-    price: 11.9,
-  },
-  {
-    image: "/grao-de-bico.png",
-    title: "Grão-de-Bico",
-    description: "Leguminosa versátil, ideal para homus, saladas e ensopados.",
-    price: 19.9,
-  },
-  {
-    image: "/lentilha.png",
-    title: "Lentilha",
-    description: "Grão rico em ferro e proteínas, cozimento rápido e fácil.",
-    price: 17.5,
-  },
-];
+type ProductsSectionProps = {
+  onAddToCart: (product: Product, selectedAmount: number) => void;
+};
 
-const ProductsSection = () => {
+const ProductsSection = ({ onAddToCart }: ProductsSectionProps) => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [productsPerPage, setProductsPerPage] = useState(2);
@@ -201,7 +126,12 @@ const ProductsSection = () => {
                   image={product.image}
                   title={product.title}
                   description={product.description}
-                  price={product.price}
+                  basePrice={product.basePrice}
+                  baseAmount={product.baseAmount}
+                  unit={product.unit}
+                  onAddToCart={(selectedAmount) =>
+                    onAddToCart(product, selectedAmount)
+                  }
                 />
               </CarouselItem>
             ))}

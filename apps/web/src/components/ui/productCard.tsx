@@ -1,19 +1,38 @@
+import { useState } from "react";
 import Image from "next/image";
-import { ShoppingBag } from "lucide-react";
+import { Check, ShoppingBag } from "lucide-react";
 
 type ProductCardProps = {
   image: string;
   title: string;
   description: string;
-  price: number;
+  basePrice: number;
+  baseAmount: number;
+  unit: "g" | "kg" | "un";
+  onAddToCart: (selectedAmount: number) => void;
 };
 
 const ProductCard = ({
   image,
   title,
   description,
-  price,
+  basePrice,
+  baseAmount,
+  unit,
+  onAddToCart,
 }: ProductCardProps) => {
+  const [isEditingAmount, setIsEditingAmount] = useState(false);
+  const [amountInput, setAmountInput] = useState(String(baseAmount));
+
+  const handleSubmitAmount = () => {
+    const selectedAmount = Number(amountInput.replace(",", "."));
+
+    if (!Number.isFinite(selectedAmount) || selectedAmount <= 0) return;
+
+    onAddToCart(selectedAmount);
+    setIsEditingAmount(false);
+  };
+
   return (
     <article
       className="
@@ -48,55 +67,94 @@ const ProductCard = ({
           {description}
         </p>
 
-        <div className="mt-auto flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-auto flex flex-col gap-3 sm:grid sm:grid-cols-[1fr_9rem] sm:items-center">
           <span className="text-xl font-bold tracking-[-0.03em] text-[#296b2f] sm:text-3xl">
-            {price.toLocaleString("pt-BR", {
+            {basePrice.toLocaleString("pt-BR", {
               style: "currency",
               currency: "BRL",
             })}
+            <span className="ml-1 text-xs font-medium text-[#6b706b] sm:text-sm">
+              / {baseAmount}
+              {unit}
+            </span>
           </span>
 
-          <button
-            className="
-            group/button
-            flex w-full items-center justify-center
-            rounded-2xl bg-[#296b2f] px-4 py-3
-            text-sm font-semibold text-white
-            transition-all duration-300
-            hover:bg-[#1f5425]
-            hover:shadow-[0px_12px_24px_rgba(41,107,47,0.22)]
-            active:scale-[0.98]
+          {isEditingAmount ? (
+            <div className="flex w-full items-center gap-2 rounded-2xl bg-[#296b2f] p-2 sm:h-12 sm:w-36 sm:max-w-36 sm:rounded-full sm:pl-3 sm:pr-2">
+              <input
+                type="number"
+                min="0"
+                step="1"
+                value={amountInput}
+                onChange={(e) => setAmountInput(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    handleSubmitAmount();
+                  }
+                }}
+                className="w-full bg-transparent text-sm font-semibold text-white outline-none placeholder:text-white/70"
+                placeholder={String(baseAmount)}
+                autoFocus
+              />
 
-            sm:ml-auto
-            sm:h-12 sm:w-12 sm:min-w-12 sm:max-w-12
-            sm:overflow-hidden
-            sm:rounded-full
-            sm:px-0
+              <span className="text-xs font-semibold text-white/80">
+                {unit}
+              </span>
 
-            sm:gap-0
-            sm:hover:w-36
-            sm:hover:max-w-36
-            sm:hover:gap-2
-            cursor-pointer
-          "
-          >
-            <ShoppingBag className="h-5 w-5 shrink-0" />
-
-            <span
+              <button
+                type="button"
+                onClick={handleSubmitAmount}
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/20 text-white transition-colors duration-300 hover:bg-white/30"
+              >
+                <Check className="h-4 w-4" />
+              </button>
+            </div>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setIsEditingAmount(true)}
               className="
-              whitespace-nowrap transition-all duration-300
+              group/button
+              flex w-full items-center justify-center
+              rounded-2xl bg-[#296b2f] px-4 py-3
+              text-sm font-semibold text-white
+              transition-all duration-300
+              hover:bg-[#1f5425]
+              hover:shadow-[0px_12px_24px_rgba(41,107,47,0.22)]
+              active:scale-[0.98]
 
-              sm:max-w-0
+              sm:ml-auto
+              sm:h-12 sm:w-12 sm:min-w-12 sm:max-w-12
               sm:overflow-hidden
-              sm:opacity-0
+              sm:rounded-full
+              sm:px-0
 
-              sm:group-hover/button:max-w-22.5
-              sm:group-hover/button:opacity-100
+              sm:gap-0
+              sm:hover:w-36
+              sm:hover:max-w-36
+              sm:hover:gap-2
+              cursor-pointer
             "
             >
-              Adicionar
-            </span>
-          </button>
+              <ShoppingBag className="h-5 w-5 shrink-0" />
+
+              <span
+                className="
+                whitespace-nowrap transition-all duration-300
+
+                sm:max-w-0
+                sm:overflow-hidden
+                sm:opacity-0
+
+                sm:group-hover/button:max-w-22.5
+                sm:group-hover/button:opacity-100
+              "
+              >
+                Adicionar
+              </span>
+            </button>
+          )}
         </div>
       </div>
     </article>
