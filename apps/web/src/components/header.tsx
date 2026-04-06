@@ -96,7 +96,7 @@ const Header = () => {
     xl:hidden absolute top-[calc(100%+12px)] left-0 w-full rounded-3xl
     bg-[rgba(255,255,255,0.92)] backdrop-blur-2xl
     shadow-[0px_20px_40px_rgba(56,102,65,0.08)]
-    p-6 z-[60] origin-top
+    p-6 z-60 origin-top
     transition-all duration-300 ease-out
     ${
       isOpen
