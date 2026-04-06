@@ -2,6 +2,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { Menu, ShoppingCart, X } from "lucide-react";
 
 import CartModal from "./ui/cartModal";
@@ -91,9 +92,12 @@ const Header = ({
             )}
           </button>
 
-          <button className="cursor-pointer rounded-xl bg-[#296b2f] px-4 py-2 text-sm font-semibold tracking-[-0.01em] text-white transition-colors duration-300 hover:bg-[#1e5a25]">
+          <Link
+            href="/login"
+            className="cursor-pointer rounded-xl bg-[#296b2f] px-4 py-2 text-sm font-semibold tracking-[-0.01em] text-white transition-colors duration-300 hover:bg-[#1e5a25]"
+          >
             Entrar
-          </button>
+          </Link>
         </div>
 
         <div className="flex items-center gap-2 lg:hidden">
@@ -147,9 +151,13 @@ const Header = ({
             </ul>
           </nav>
 
-          <button className="mt-6 w-full rounded-2xl bg-[#296b2f] py-3 text-sm font-semibold text-white transition-colors duration-300 hover:bg-[#1e5a25]">
+          <Link
+            href="/login"
+            onClick={() => setIsOpen(false)}
+            className="mt-6 block w-full rounded-2xl bg-[#296b2f] py-3 text-center text-sm font-semibold text-white transition-colors duration-300 hover:bg-[#1e5a25]"
+          >
             Entrar
-          </button>
+          </Link>
         </div>
       </header>
 
