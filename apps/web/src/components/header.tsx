@@ -8,16 +8,16 @@ const Header = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   const navItems = [
-    "Inicio",
-    "Produtos Naturais",
-    "Marmitas",
-    "Cardapio do Dia",
-    "Sobre",
+    { label: "Inicio", href: "#inicio" },
+    { label: "Produtos Naturais", href: "#products" },
+    { label: "Marmitas", href: "#marmitas" },
+    { label: "Cardapio do Dia", href: "#cardapio" },
+    { label: "Sobre", href: "#sobre" },
   ];
 
   return (
-    <div className="relative z-50 w-full">
-      <header className="flex items-center z-50 justify-between w-full py-4 px-8 rounded-full bg-[rgba(255,255,255,0.75)] backdrop-blur-2xl shadow-[0px_20px_40px_rgba(56,102,65,0.06)]">
+    <div className=" z-50 w-full sticky top-0">
+      <header className="flex items-center z-50 justify-between w-full py-4 px-8 md:rounded-full bg-[rgba(255,255,255,0.45)] backdrop-blur-2xl shadow-[0px_20px_40px_rgba(56,102,65,0.06)]">
         {/* Logo */}
         <h1 className="text-2xl font-semibold tracking-[-0.02em] text-[#296b2f]">
           Naturale
@@ -28,11 +28,11 @@ const Header = () => {
           <ul className="flex items-center gap-6">
             {navItems.map((item) => (
               <li
-                key={item}
+                key={item.href}
                 className="text-sm font-medium uppercase tracking-[0.05em] text-[#4b4f4b] hover:text-[#296b2f] transition-colors duration-300 cursor-pointer"
               >
                 <a
-                  href=""
+                  href={item.href}
                   className="
                   relative inline-block py-2
                   after:absolute after:left-0 after:bottom-0
@@ -43,7 +43,7 @@ const Header = () => {
                   hover:after:scale-x-100
                   "
                 >
-                  {item}
+                  {item.label}
                 </a>
               </li>
             ))}
@@ -93,23 +93,23 @@ const Header = () => {
         {/* Menu mobile */}
         <div
           className={`
-    xl:hidden absolute top-[calc(100%+12px)] left-0 w-full rounded-3xl
-    bg-[rgba(255,255,255,0.92)] backdrop-blur-2xl
-    shadow-[0px_20px_40px_rgba(56,102,65,0.08)]
-    p-6 z-60 origin-top
-    transition-all duration-300 ease-out
-    ${
-      isOpen
-        ? "opacity-100 translate-y-0 scale-100 pointer-events-auto"
-        : "opacity-0 -translate-y-2 scale-95 pointer-events-none"
-    }
-  `}
+          xl:hidden absolute top-[calc(100%)] left-0 w-full
+          bg-[rgba(255,255,255,1)] backdrop-blur-2xl
+          shadow-[0px_20px_40px_rgba(56,102,65,0.08)]
+          p-6 z-60 origin-top
+          transition-all duration-300 ease-out
+          ${
+            isOpen
+              ? "opacity-100 translate-y-0 scale-100 pointer-events-auto"
+              : "opacity-0 -translate-y-2 scale-95 pointer-events-none"
+          }
+        `}
         >
           <nav>
             <ul className="flex flex-col gap-5">
               {navItems.map((item, index) => (
                 <li
-                  key={item}
+                  key={item.href}
                   className={`
             transition-all duration-300
             ${isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}
@@ -121,10 +121,11 @@ const Header = () => {
           `}
                 >
                   <a
-                    href="#"
+                    href={item.href}
+                    onClick={() => setIsOpen(false)}
                     className="text-base font-medium text-[#4b4f4b] hover:text-[#296b2f] transition-colors duration-300"
                   >
-                    {item}
+                    {item.label}
                   </a>
                 </li>
               ))}

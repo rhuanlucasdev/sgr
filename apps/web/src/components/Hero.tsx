@@ -30,7 +30,10 @@ const itemVariants = {
 
 const Hero = () => {
   return (
-    <section className="relative overflow-visible bg-[#F8F7F2]">
+    <section
+      className="relative overflow-visible bg-linear-to-b from-[#F8F7F2] to-[#FFFFFF]"
+      id="inicio"
+    >
       <div className="mx-auto grid min-h-[calc(100vh-88px)] max-w-7xl items-center gap-16 px-6 pb-16 lg:px-10 xl:grid-cols-2">
         {/* Conteúdo da esquerda */}
         <motion.div
