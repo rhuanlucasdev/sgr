@@ -30,14 +30,14 @@ const itemVariants = {
 
 const Hero = () => {
   return (
-    <section className="relative overflow-hidden bg-[#F8F7F2]">
-      <div className="mx-auto grid min-h-[calc(100vh-88px)] max-w-7xl items-center gap-16 px-6 pt-10 pb-16 lg:px-10 xl:grid-cols-2">
+    <section className="relative overflow-visible bg-[#F8F7F2]">
+      <div className="mx-auto grid min-h-[calc(100vh-88px)] max-w-7xl items-center gap-16 px-6 pb-16 lg:px-10 xl:grid-cols-2">
         {/* Conteúdo da esquerda */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="relative z-20 max-w-140"
+          className="relative max-w-140"
         >
           <motion.span
             variants={itemVariants}
@@ -180,7 +180,7 @@ const Hero = () => {
                 },
               }}
               className="
-        absolute -bottom-5 right-5
+        absolute -bottom-5 -right-30
         z-20
         h-138.75 w-75
       "

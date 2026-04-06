@@ -16,8 +16,8 @@ const Header = () => {
   ];
 
   return (
-    <div className="relative w-full">
-      <header className="flex items-center justify-between w-full py-4 px-8 rouunded-full bg-[rgba(255,255,255,0.75)] backdrop-blur-2xl shadow-[0px_20px_40px_rgba(56,102,65,0.06)]">
+    <div className="relative z-50 w-full">
+      <header className="flex items-center z-50 justify-between w-full py-4 px-8 rounded-full bg-[rgba(255,255,255,0.75)] backdrop-blur-2xl shadow-[0px_20px_40px_rgba(56,102,65,0.06)]">
         {/* Logo */}
         <h1 className="text-2xl font-semibold tracking-[-0.02em] text-[#296b2f]">
           Naturale
@@ -36,7 +36,7 @@ const Header = () => {
                   className="
                   relative inline-block py-2
                   after:absolute after:left-0 after:bottom-0
-                  after:h-[2px] after:w-full
+                  after:h-0.5 after:w-full
                   after:origin-left after:scale-x-0
                   after:bg-[#296b2f]
                   after:transition-transform after:duration-300
@@ -93,10 +93,10 @@ const Header = () => {
         {/* Menu mobile */}
         <div
           className={`
-    xl:hidden absolute top-[calc(100%)] left-0 w-full rounded-3xl
+    xl:hidden absolute top-[calc(100%+12px)] left-0 w-full rounded-3xl
     bg-[rgba(255,255,255,0.92)] backdrop-blur-2xl
     shadow-[0px_20px_40px_rgba(56,102,65,0.08)]
-    p-6 z-50 origin-top
+    p-6 z-60 origin-top
     transition-all duration-300 ease-out
     ${
       isOpen
